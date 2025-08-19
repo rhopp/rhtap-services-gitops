@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: artifactory
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: artifactory
+  
+  # --- NEW: Use the 'sources' field instead of 'source' ---
+  sources:
+    # Source 1: The raw Kubernetes manifests for the Secret and ConfigMap
+    - repoURL: 'https://github.com/rhopp/rhtap-services-gitops'
+      targetRevision: artifactory
+      path: 'components/artifactory'
+    
+    # Source 2: The Helm chart for Artifactory
+    - repoURL: 'https://charts.jfrog.io'
+      chart: artifactory
+      targetRevision: 107.71.5
+      helm:
+        values: |
+          artifactory:
+            image:
+              repository: releases-docker.jfrog.io/jfrog/artifactory-jcr
+              version: 7.71.5
+
+          postgresql:
+            enabled: true
+            postgresqlPassword: "a-strong-password"
+
+          initContainers:
+            - name: setup-artifactory
+              image: "alpine/curl:3.14"
+              command: ["/bin/sh", "-c", "/scripts/setup.sh"]
+              volumeMounts:
+                - name: setup-script
+                  mountPath: /scripts
+                - name: admin-creds
+                  mountPath: /etc/artifactory-creds
+
+          extraVolumes:
+            - name: setup-script
+              configMap:
+                name: artifactory-setup-script
+                defaultMode: 0755
+            - name: admin-creds
+              secret:
+                secretName: artifactory-admin-creds
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
