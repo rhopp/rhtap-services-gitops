@@ -21,7 +21,7 @@ spec:
     # Source 2: The Helm chart for Artifactory
     - repoURL: 'https://charts.jfrog.io'
       chart: jfrog/artifactory-oss
-      targetRevision: 107.71.5
+      targetRevision: 107.117.10
       helm:
         values: |
           containerSecurityContext:
