@@ -33,7 +33,18 @@ spec:
             enabled: true
             postgresqlPassword: "a-strong-password"
 
+          # Arrr! Configure the init containers resources as the chart expects
           initContainers:
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+              limits:
+                cpu: 200m
+                memory: 256Mi
+
+          # Arrr! Add our custom init container using extraInitContainers
+          extraInitContainers:
             - name: setup-artifactory
               image: "alpine/curl:3.14"
               command: ["/bin/sh", "-c", "/scripts/setup.sh"]
@@ -42,7 +53,6 @@ spec:
                   mountPath: /scripts
                 - name: admin-creds
                   mountPath: /etc/artifactory-creds
-              resources: {}
 
           extraVolumes:
             - name: setup-script
