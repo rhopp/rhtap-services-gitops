@@ -42,6 +42,7 @@ spec:
                   mountPath: /scripts
                 - name: admin-creds
                   mountPath: /etc/artifactory-creds
+              resources: {}
 
           extraVolumes:
             - name: setup-script
