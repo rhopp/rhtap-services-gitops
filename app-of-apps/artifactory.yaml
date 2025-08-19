@@ -32,11 +32,11 @@ spec:
           #   image:
           #     repository: releases-docker.jfrog.io/jfrog/artifactory-jcr
           #     version: 7.71.5
-          nginx:
-            podSecurityContext:
-              enabled: false
-            containerSecurityContext:
-              enabled: false
+            nginx:
+              podSecurityContext:
+                enabled: false
+              containerSecurityContext:
+                enabled: false
 
           postgresql:
             enabled: true
