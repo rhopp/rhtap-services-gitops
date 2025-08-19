@@ -20,7 +20,7 @@ spec:
     
     # Source 2: The Helm chart for Artifactory
     - repoURL: 'https://charts.jfrog.io'
-      chart: artifactory
+      chart: artifactory-jcs
       targetRevision: 107.71.5
       helm:
         values: |
