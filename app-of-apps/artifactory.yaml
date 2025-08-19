@@ -20,8 +20,8 @@ spec:
     
     # Source 2: The Helm chart for Artifactory
     - repoURL: 'https://charts.jfrog.io'
-      chart: jfrog/artifactory-oss
-      targetRevision: 107.117.10
+      chart: artifactory-jcr
+      targetRevision: 7.18.6
       helm:
         values: |
           containerSecurityContext:
@@ -29,9 +29,9 @@ spec:
           artifactory:
             podSecurityContext:
               enabled: false
-            image:
-              repository: releases-docker.jfrog.io/jfrog/artifactory-jcr
-              version: 7.71.5
+          #   image:
+          #     repository: releases-docker.jfrog.io/jfrog/artifactory-jcr
+          #     version: 7.71.5
           nginx:
             podSecurityContext:
               enabled: false
