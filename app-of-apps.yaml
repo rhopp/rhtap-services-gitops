@@ -10,8 +10,8 @@ spec:
   project: gitops-resources
   source:
     path: ./app-of-apps
-    repoURL: https://github.com/smatula/rhtap-services-gitops
-    targetRevision: artifactory
+    repoURL: https://github.com/rhopp/rhtap-services-gitops
+    targetRevision: artifactory_stephen
   syncPolicy:
     automated: 
       prune: true

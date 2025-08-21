@@ -11,8 +11,8 @@ spec:
   # --- NEW: Use the 'sources' field instead of 'source' ---
   sources:
   # Source 1: The raw Kubernetes manifests for the Secret and ConfigMap
-  - repoURL: 'https://github.com/smatula/rhtap-services-gitops'
-    targetRevision: artifactory
+  - repoURL: 'https://github.com/rhopp/rhtap-services-gitops'
+    targetRevision: artifactory_stephen
     path: 'components/artifactory'
   - repoURL: https://charts.jfrog.io
     chart: artifactory-jcr
@@ -21,8 +21,8 @@ spec:
       releaseName: jfrog-container-registry
       valueFiles:
         - $values/values.yaml
-  - repoURL: https://github.com/smatula/rhtap-services-gitops
-    targetRevision: artifactory
+  - repoURL: https://github.com/rhopp/rhtap-services-gitops
+    targetRevision: artifactory_stephen
     ref: values
   syncPolicy:
     managedNamespaceMetadata:
