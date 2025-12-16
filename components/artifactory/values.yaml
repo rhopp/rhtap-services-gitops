@@ -6,6 +6,9 @@ artifactory:
     enabled: false
 
   artifactory:
+    persistence:
+      enabled: true
+      existingClaim: "mypvc"
     podSecurityContext:
       enabled: false
     containerSecurityContext:
